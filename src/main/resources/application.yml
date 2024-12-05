@@ -1,0 +1,27 @@
+spring:
+  mail:
+    host: smtp.163.com
+    username: wyh_sunflower@163.com
+    #需要使用发送邮件服务的 授权码， 并开启IMAP/SMTP服务
+    password: CEra37N5AtnQM9UF
+  rabbitmq:
+    addresses: localhost
+    username: guest
+    password: guest
+    virtual-host: /
+  security:
+    filter:
+      order: -100
+    jwt:
+      key: azpolkujg56fdsg
+      expire: 1
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      auth:
+  datasource:
+    username: root
+    password: 1q2w3e4r
+    url: jdbc:mysql://localhost:3306/koi?characterEncoding=utf8&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
