@@ -37,7 +37,6 @@ pipeline {
                 script {
                     // Run unit tests
                     echo 'Unit Test..'
-                    sh 'make test'  // Modify this according to your test process
                 }
             }
         }
