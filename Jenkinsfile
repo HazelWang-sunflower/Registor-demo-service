@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    tools{
+        maven 'Maven 3.9.9'
+    }
+
     environment {
         ALIYU_REGION = 'us-west-2'
 //         MIRROR_NAME = 'register-demo-service:v0.0.1'
