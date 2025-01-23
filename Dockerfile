@@ -4,7 +4,7 @@ WORKDIR app
 
 COPY target/*jar app.jar
 
-ARG DOCKER_CLIENT=“docker-17.06.2-ce.tgz”
+ARG DOCKER_CLIENT=docker-17.06.2-ce.tgz
 
 RUN cd /tmp/
 && curl -sSL -O https://download.docker.com/linux/static/stable/x86_64/${DOCKER_CLIENT} \
