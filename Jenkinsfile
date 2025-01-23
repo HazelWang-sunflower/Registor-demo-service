@@ -12,7 +12,7 @@ pipeline {
             steps {
                 // Checkout the code from the repository
                 echo 'Checkout..'
-                checkout scm
+                sh 'git clone https://github.com/HazelWang-sunflower/Registor-demo-service.git'
             }
         }
 
