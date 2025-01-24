@@ -80,6 +80,7 @@ pipeline {
         stage('Clean'){
             steps{
 //                 sh "docker rm -f register-demo-service:v0.0.1 . "
+                echo 'Clean..'
             }
         }
 
