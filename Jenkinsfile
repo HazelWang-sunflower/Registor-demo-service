@@ -23,7 +23,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    echo 'Building..'
+                    echo 'Building...'
+                    sh 'docker -v'
                     // Build the application
                     withMaven() {
                         sh 'mvn clean package'
@@ -95,6 +96,12 @@ pipeline {
                     // login to aliyu
                     // publish mirror
                 }
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                //
             }
         }
     }

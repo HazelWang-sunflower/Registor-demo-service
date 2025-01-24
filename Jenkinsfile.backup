@@ -1,0 +1,56 @@
+pipeline {
+    agent {
+        docker {
+            image 'golang:1.15-alpine'
+            args '-v /data/my-app-cache:/go/.cache'
+        }
+    }
+
+    options {
+        timeout(time: 20, unit: 'MINUTES')
+        disableConcurrentBuilds()
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                withCredentials(bindings: [
+                    usernamePassword(credentialsId: 'GITHUB_CREDENTIAL',
+                        usernameVariable: 'GITHUB_USER',
+                        passwordVariable: 'GITHUB_ACCESS_TOKEN'
+                    )
+                ]) {
+                    sh '''
+                    git config --global url."https://${GITHUB_ACCESS_TOKEN}:x-oauth-basic@github.com/".insteadOf "https://github.com/"
+
+                    go mod tidy
+                    go build -o bin/my-app main.go
+                    '''
+                }
+            }
+        }
+
+        stage('Deploy') {
+            environment {
+                DEPLOY_HOST = credentials('DEPLOY_HOST')
+                DEPLOY_PORT = credentials('DEPLOY_PORT')
+            }
+            steps {
+                withCredentials([
+                    sshUserPrivateKey(credentialsId: 'SSH_CREDENTIAL',
+                        keyFileVariable: 'SSH_KEY',
+                        usernameVariable: 'SSH_USERNAME'),
+                ]) {
+                    sh """
+                    mkdir -p ~/.ssh && chmod 700 ~/.ssh
+                    echo 'StrictHostKeyChecking no' >> /etc/ssh/ssh_config
+                    cat ${SSH_KEY} > ~/.ssh/id_rsa && chmod 400 ~/.ssh/id_rsa
+
+                    scp -P ${DEPLOY_PORT} bin/my-app ${SSH_USER}@${DEPLOY_HOST}:/data/my-app
+                    ssh -p ${DEPLOY_PORT} ${SSH_USER}@${DEPLOY_HOST} \"nohup /data/my-app >> /data/my-app.log 2>&1 &\"
+                    """
+                }
+            }
+        }
+    }
+}
