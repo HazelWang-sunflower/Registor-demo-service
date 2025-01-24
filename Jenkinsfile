@@ -90,7 +90,7 @@ pipeline {
 //                     deployToK8s(env.BRANCH_NAME)
                     echo 'Publish to Kubernetes..'
                     sh "mvn clean package"
-                    sh "docker build -t register-demo-service:v0.0.1 . "
+//                     sh "docker build -t register-demo-service:v0.0.1 . "
                     // login to aliyu
                     // publish mirror
                 }
