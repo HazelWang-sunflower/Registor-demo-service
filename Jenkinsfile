@@ -8,7 +8,6 @@ pipeline {
     environment {
         ALIYU_REGION = 'us-west-2'
 //         MIRROR_NAME = 'register-demo-service:v0.0.1'
-        // Add other necessary environment variables here
     }
 
     stages {
@@ -101,7 +100,7 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                //
+                echo 'Deploy..'
             }
         }
     }
