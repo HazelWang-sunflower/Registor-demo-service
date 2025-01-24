@@ -1,6 +1,6 @@
 pipeline {
     agent {
-         agent { dockerfile true }
+          dockerfile true
     }
 
     tools{
