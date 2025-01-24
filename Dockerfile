@@ -15,3 +15,5 @@ RUN cd /tmp/
 && rm -rf /tmp/*
 
 CMD["java", "-jar", "app.jar"]
+
+EXPOSE 8888
