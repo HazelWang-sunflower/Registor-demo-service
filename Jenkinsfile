@@ -91,7 +91,7 @@ pipeline {
 //                     deployToK8s(env.BRANCH_NAME)
                     echo 'Publish to Kubernetes..'
                     sh "mvn clean package"
-//                     sh "docker build -t register-demo-service:v0.0.1 . "
+                    sh "docker build . -t api-0.0.1-SNAPSHOT.jar"
                     // login to aliyu
                     // publish mirror
                 }
@@ -108,6 +108,11 @@ pipeline {
     post {
         always {
             cleanWs()  // Clean workspace after each build
+        }
+        success {
+            script {
+                    print('Success Build')
+            }
         }
     }
 }
