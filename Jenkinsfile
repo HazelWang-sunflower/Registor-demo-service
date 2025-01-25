@@ -113,6 +113,9 @@ pipeline {
     }
 
     post {
+        always {
+            cleanWs()  // Clean workspace after each build
+        }
         success {
             script {
                     print('Success Build')
