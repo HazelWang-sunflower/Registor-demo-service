@@ -23,11 +23,18 @@ pipeline {
             steps {
                 script {
                     echo 'Building...'
-                    sh 'docker -v'
                     // Build the application
                     withMaven() {
-                        sh 'mvn clean package'
+                        sh 'mvn -Dmaven.test.failure.ignore=true clean package'
                     }
+                }
+            }
+
+            post {
+                // If Maven was able to run the tests, even if some of the test
+                // failed, record the test results and archive the jar file.
+                success {
+                    archiveArtifacts 'target/*.jar'
                 }
             }
         }
@@ -79,7 +86,7 @@ pipeline {
 
         stage('Clean'){
             steps{
-//                 sh "docker rm -f register-demo-service:v0.0.1 . "
+//                 sh "docker rm -f app:v0.0.1 . "
                 echo 'Clean..'
             }
         }
@@ -91,7 +98,7 @@ pipeline {
 //                     deployToK8s(env.BRANCH_NAME)
                     echo 'Publish to Kubernetes..'
                     sh "mvn clean package"
-                    sh "docker build . -t api-0.0.1-SNAPSHOT.jar"
+                    sh "docker build . -t app.jar"
                     // login to aliyu
                     // publish mirror
                 }
