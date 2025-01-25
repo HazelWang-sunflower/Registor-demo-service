@@ -1,10 +1,5 @@
 pipeline {
-    agent {
-        docker {
-            image 'docker'
-            args '--privileged'
-        }
-    }
+    agent any
 
     tools{
         maven 'Maven3.9.9'
