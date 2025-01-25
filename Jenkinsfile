@@ -1,5 +1,10 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'docker'
+            args '--privileged'
+        }
+    }
 
     tools{
         maven 'Maven3.9.9'
@@ -98,7 +103,7 @@ pipeline {
 //                     deployToK8s(env.BRANCH_NAME)
                     echo 'Publish to Kubernetes..'
                     sh "mvn clean package"
-                    sh "docker build . -t app.jar"
+                    sh "docker build -t app ."
                     // login to aliyu
                     // publish mirror
                 }
@@ -113,9 +118,6 @@ pipeline {
     }
 
     post {
-        always {
-            cleanWs()  // Clean workspace after each build
-        }
         success {
             script {
                     print('Success Build')
