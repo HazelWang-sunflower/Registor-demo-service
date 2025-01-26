@@ -1,12 +1,10 @@
 pipeline {
-    agent {
-        docker { image 'openjdk:17' }
-    }
+    agent any
     stages {
         stage('Pull Docker Image') {
             steps {
 
-                sh "docker login --username=HazelWang0121 crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com"
+                sh "docker info"
 
                 sh "docker pull crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com/aliyu_hazel/aliyu_mirror_reg:${IMAGE_NAME}"
             }
