@@ -23,7 +23,6 @@ pipeline {
             steps {
                 script {
                     echo 'Building...'
-                    // Build the application
                     withMaven() {
                         sh 'mvn -Dmaven.test.failure.ignore=true clean package'
                     }

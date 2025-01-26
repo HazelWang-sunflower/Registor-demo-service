@@ -7,7 +7,7 @@ spring:
     #需要使用发送邮件服务的 授权码， 并开启IMAP/SMTP服务
     password: CEra37N5AtnQM9UF
   rabbitmq:
-    addresses: localhost
+    addresses: 192.168.3.19
     username: guest
     password: guest
     virtual-host: /
@@ -19,7 +19,7 @@ spring:
       expire: 1
   data:
     redis:
-      host: 127.0.0.1
+      host: 192.168.3.19
       port: 6379
       auth:
   datasource:
