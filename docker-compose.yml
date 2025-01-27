@@ -1,0 +1,16 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: Jenkins-bind
+    user: root  # 以 root 用户运行，以便安装 Docker 客户端
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  # 挂载 Docker 套接字
+      - jenkins_data:/var/jenkins_home  # 持久化 Jenkins 数据
+    ports:
+      - "10010:8080"  # 将 Jenkins Web UI 暴露在宿主机的 8080 端口
+      - "50010:50000"  # Jenkins 代理端口
+    command: >
+      sh -c "apk add --no-cache docker-cli &&  # 安装 Docker 客户端
+             su - jenkins -c '/usr/local/bin/jenkins.sh'"  # 以 Jenkins 用户启动 Jenkins
+volumes:
+  jenkins_data:  # 定义持久化卷
