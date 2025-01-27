@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+        docker 'docker'
+    }
     environment {
         DOCKER_REGISTRY = "crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com"
         // 镜像名称
