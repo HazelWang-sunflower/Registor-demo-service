@@ -18,6 +18,7 @@ pipeline {
     stages {
         stage('Pull Docker Image') {
             steps {
+                echo"====image crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com/aliyu_hazel/aliyu_mirror_reg:${IMAGE_NAME}"
                 script {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
                         docker.image("crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com/aliyu_hazel/aliyu_mirror_reg:${IMAGE_NAME}").pull()
