@@ -1,5 +1,9 @@
 pipeline {
     agent any
+
+    tools {
+        'org.jenkinsci.plugins.docker.commons.tools.DockerTool' '18.09'
+      }
     environment {
         DOCKER_REGISTRY = "crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com"
         // 镜像名称
@@ -18,7 +22,7 @@ pipeline {
     stages {
         stage('Pull Docker Image') {
             steps {
-                echo"====image crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com/aliyu_hazel/aliyu_mirror_reg:${IMAGE_NAME}"
+                echo"====image crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com/aliyu_hazel/aliyu_mirror_reg:${IMAGE_TAG}"
                 script {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
                         docker.image("crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com/aliyu_hazel/aliyu_mirror_reg:register_api_63").pull()
