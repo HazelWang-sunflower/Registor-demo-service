@@ -3,7 +3,7 @@ pipeline {
     environment {
         DOCKER_REGISTRY = "crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com"
         IMAGE_NAME = "/aliyu_hazel/aliyu_mirror_reg"
-        IMAGE_TAG = ${IMAGE_NAME}
+        IMAGE_TAG = "${IMAGE_NAME}"
         DOCKER_CREDENTIALS_ID = '2c597f84-a9f1-4fa5-817d-3f9fff199bd0'
     }
     stages {
