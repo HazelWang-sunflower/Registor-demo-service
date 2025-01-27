@@ -1,9 +1,7 @@
 pipeline {
     agent any
     tools {
-        'org.jenkinsci.plugins.docker.commons.DockerCommonsPlugin' '445.v6b_646c962a_94'
         'org.jenkinsci.plugins.docker.commons.DockerCommonsPlugin' '2.387.3'
-        'docker-commons' '2.387.3'
     }
     environment {
         DOCKER_REGISTRY = "crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com"
