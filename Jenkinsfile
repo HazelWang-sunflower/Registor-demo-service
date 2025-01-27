@@ -1,7 +1,7 @@
 pipeline {
     agent any
     tools {
-        'docker' '18.09'
+        'dockerTool' '18.09'
     }
     environment {
         DOCKER_REGISTRY = "crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com"
