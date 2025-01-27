@@ -20,7 +20,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
-                                    docker.image("${IMAGE_NAME}:${IMAGE_TAG}").pull()
+                        docker.image("crpi-embxeomgvcgz74wi.cn-qingdao.personal.cr.aliyuncs.com/aliyu_hazel/aliyu_mirror_reg:${IMAGE_NAME}").pull()
                     }
                 }
             }
