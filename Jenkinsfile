@@ -18,26 +18,30 @@ pipeline {
     stages {
         stage('Pull Docker Image') {
             steps {
-                docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
-                    docker.image("${IMAGE_NAME}:${IMAGE_TAG}").pull()
+                script {
+                    docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
+                                    docker.image("${IMAGE_NAME}:${IMAGE_TAG}").pull()
+                    }
                 }
             }
         }
         stage('Deploy') {
             steps {
-                docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
-                    try {
-                        def existingContainer = docker.container("${CONTAINER_NAME}")
-                        existingContainer.stop()
-                        existingContainer.remove()
-                    } catch (Exception e) {
-                        echo "容器 ${CONTAINER_NAME} 不存在，无需删除"
-                    }
+                script{
+                    docker.withRegistry("https://${DOCKER_REGISTRY}", DOCKER_CREDENTIALS_ID) {
+                        try {
+                            def existingContainer = docker.container("${CONTAINER_NAME}")
+                            existingContainer.stop()
+                            existingContainer.remove()
+                        } catch (Exception e) {
+                            echo "容器 ${CONTAINER_NAME} 不存在，无需删除"
+                        }
 
-                    // 运行新的容器
-                    docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run(
-                        "--name ${CONTAINER_NAME} -p ${HOST_PORT}:${CONTAINER_PORT}"
-                    )
+                        // 运行新的容器
+                        docker.image("${IMAGE_NAME}:${IMAGE_TAG}").run(
+                            "--name ${CONTAINER_NAME} -p ${HOST_PORT}:${CONTAINER_PORT}"
+                        )
+                    }
                 }
             }
         }
